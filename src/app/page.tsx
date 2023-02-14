@@ -15,9 +15,8 @@ type LineUserProfile = {
 };
 
 export default function Home() {
-  const [profile, setProfile] = useState<LineUserProfile | undefined>(
-    undefined
-  );
+  const [profile, setProfile] = useState<LineUserProfile>();
+  const [idToken, setIdToken] = useState<string | null>("");
 
   useEffect(() => {
     try {
@@ -35,12 +34,21 @@ export default function Home() {
     }
   }, []);
 
+  const getIdToken = async () => {
+    setIdToken((prev) => (prev ? "" : liff.getIDToken()));
+  };
+
   return (
     <main>
       <div>displayName: {profile?.displayName}</div>
       <div>userId: {profile?.userId}</div>
       <div>pictureUrl: {profile?.pictureUrl ?? "noImg"}</div>
       <div>statusMessage: {profile?.statusMessage}</div>
+      <button onClick={getIdToken}>
+        {idToken ? "clear" : "click here and get your id token!"}
+      </button>
+
+      <div>your id token is: {idToken}</div>
     </main>
   );
 }
