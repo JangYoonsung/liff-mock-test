@@ -34,17 +34,15 @@ export default function Home() {
     }
   }, []);
 
-  const getIdToken = async () => {
-    setIdToken((prev) => (prev ? "" : liff.getIDToken()));
-  };
-
   return (
     <main>
       <div>displayName: {profile?.displayName}</div>
       <div>userId: {profile?.userId}</div>
       <div>pictureUrl: {profile?.pictureUrl ?? "noImg"}</div>
       <div>statusMessage: {profile?.statusMessage}</div>
-      <button onClick={getIdToken}>
+      <button
+        onClick={() => setIdToken((prev) => (prev ? "" : liff.getIDToken()))}
+      >
         {idToken ? "clear" : "click here and get your id token!"}
       </button>
 
